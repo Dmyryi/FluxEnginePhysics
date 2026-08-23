@@ -67,3 +67,24 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+
+
+
+.vs/
+
+
+# Visual Studio Project artifacts & cache
+out/
+*.vcxproj.user
+*.vcxproj.filters
+*.idb
+*.tlog
+*.ipch
+*.opendb
+*.db
+*.VC.opendb
+
+# Windows desktop artifacts
+Thumbs.db
+Desktop.ini
