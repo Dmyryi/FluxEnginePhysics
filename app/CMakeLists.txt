@@ -1,0 +1,2 @@
+add_executable(FluxEnginePhysics main.cpp)
+target_link_libraries(FluxEnginePhysics PRIVATE presentation infrastructure)
