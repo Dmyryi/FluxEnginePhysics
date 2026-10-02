@@ -1,8 +1,8 @@
 {
-  "name": "flux-engine-physics",
-  "version": "0.1.0",
-  "dependencies": [
-    "sfml",
-    "imgui-sfml"
-  ]
+    "name": "flux-engine-physics",
+    "version": "0.1.0",
+    "dependencies": [
+        "sfml",
+        "imgui-sfml"
+    ]
 }
