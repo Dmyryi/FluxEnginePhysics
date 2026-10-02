@@ -3,11 +3,12 @@ add_library(presentation STATIC
     include/presentation/Camera2D.h
     src/Camera2D.cpp
     include/presentation/Renderer/SfmlBodyRenderer.h
-    
- "include/presentation/Inspector/ImGuiInspectorVisitor.h")
+    include/presentation/Inspector/ImGuiInspectorVisitor.h
+)
 
 target_include_directories(presentation PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${imgui_SOURCE_DIR} # קעמבû גטהועü ץוהונא imgui.h
 )
 
 target_link_libraries(presentation PUBLIC
@@ -15,7 +16,6 @@ target_link_libraries(presentation PUBLIC
     SFML::Graphics
     SFML::Window
     SFML::System
-    imgui              
     ImGui-SFML::ImGui-SFML
 )
 

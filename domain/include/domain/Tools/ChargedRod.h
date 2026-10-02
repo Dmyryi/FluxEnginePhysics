@@ -20,7 +20,7 @@ namespace Flux::Domain {
         ChargedRod() = default;
         ChargedRod(std::uint64_t id, std::string name, const Vector2D& pos, float len, float q, float angle = 0.0f);
 
-        void accept(IBodyVisitor& visitor) const override;
+        void accept(IBodyVisitor& visitor) override;
 
         std::vector<ChargeElement> getChargeElements() const override;
 

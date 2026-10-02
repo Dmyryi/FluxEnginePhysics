@@ -62,14 +62,12 @@ namespace Flux::Presentation {
 
         sf::VertexArray lines(sf::PrimitiveType::Lines);
 
-        // Вертикальные линии
         for (float x = startX; x <= right; x += gridSize) {
             sf::Color color = (std::abs(x) < 0.001f) ? sf::Color(120, 180, 255, 220) : sf::Color(60, 60, 75, 120);
             lines.append(sf::Vertex{ .position = sf::Vector2f(x, top), .color = color });
             lines.append(sf::Vertex{ .position = sf::Vector2f(x, bottom), .color = color });
         }
 
-        // Горизонтальные линии
         for (float y = startY; y <= bottom; y += gridSize) {
             sf::Color color = (std::abs(y) < 0.001f) ? sf::Color(255, 120, 120, 220) : sf::Color(60, 60, 75, 120);
             lines.append(sf::Vertex{ .position = sf::Vector2f(left, y), .color = color });

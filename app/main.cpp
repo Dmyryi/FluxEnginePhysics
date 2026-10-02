@@ -46,7 +46,6 @@ int main() {
     Flux::Domain::PointChargeCreator pointCreator;
     Flux::Domain::ChargedRodCreator rodCreator;
 
-    // Состояние инструментов и симуляции
     ToolType activeTool = ToolType::PointCharge;
     bool isRunning = true;
     float timeStep = 0.016f;
@@ -54,11 +53,9 @@ int main() {
     float coulombK = 50000.0f;
     float dragCoeff = 0.5f;
 
-    // Параметры создания
     float spawnCharge = 1.0f;
     float spawnMass = 1.0f;
 
-    // ID выбранного объекта для инспектора
     std::uint64_t selectedId = 0;
 
     while (window.isOpen()) {
@@ -107,15 +104,13 @@ int main() {
 
         ImGui::SFML::Update(window, elapsed);
 
-        // --- Физика ---
+
         if (isRunning) {
             stepSimulation.execute(bodies, dt, coulombK, dragCoeff);
             totalSimTime += dt;
         }
 
-        // ================= UI ПАНЕЛИ =================
 
-        // 1. Верхний Toolbar
         ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
         ImGui::SetNextWindowSize(ImVec2(static_cast<float>(window.getSize().x), 55.0f), ImGuiCond_Always);
         ImGui::Begin("TopBar", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
@@ -145,7 +140,6 @@ int main() {
         }
         ImGui::End();
 
-        // 2. Левая верхняя панель: Иерархия сцены
         ImGui::SetNextWindowPos(ImVec2(10, 65), ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowSize(ImVec2(240, 360), ImGuiCond_FirstUseEver);
         ImGui::Begin("Hierarchy / Assets");
@@ -166,7 +160,6 @@ int main() {
         }
         ImGui::End();
 
-        // 3. Левая нижняя панель: Свойства выбранного объекта (Inspector)
         ImGui::SetNextWindowPos(ImVec2(10, 435), ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowSize(ImVec2(240, 440), ImGuiCond_FirstUseEver);
         ImGui::Begin("Properties");
@@ -183,33 +176,28 @@ int main() {
                 ImGui::Text("Selected: %s (ID: %llu)", selectedBody->getName().c_str(), selectedBody->getId());
                 ImGui::Separator();
 
-                // Масса
                 float mass = selectedBody->getMass();
                 if (ImGui::DragFloat("Mass (kg)", &mass, 0.1f, 0.01f, 1000.0f)) {
                     selectedBody->setMass(mass);
                 }
 
-                // Позиция
                 auto pos = selectedBody->getPosition();
                 float p[2] = { pos.x, pos.y };
                 if (ImGui::DragFloat2("Position", p, 1.0f)) {
                     selectedBody->setPosition({ p[0], p[1] });
                 }
 
-                // Скорость
                 auto vel = selectedBody->getVelocity();
                 float v[2] = { vel.x, vel.y };
                 if (ImGui::DragFloat2("Velocity", v, 1.0f)) {
                     selectedBody->setVelocity({ v[0], v[1] });
                 }
 
-                // Пин (гвоздь)
                 bool pinned = selectedBody->isPinned();
                 if (ImGui::Checkbox("Pinned (Fixed)", &pinned)) {
                     selectedBody->setPinned(pinned);
                 }
 
-                // Специфичные поля для точечного заряда
                 if (auto* pc = dynamic_cast<Flux::Domain::PointCharge*>(selectedBody)) {
                     float q = pc->getCharge();
                     if (ImGui::DragFloat("Charge (q)", &q, 0.1f, -50.0f, 50.0f)) {
@@ -223,7 +211,6 @@ int main() {
         }
         ImGui::End();
 
-        // 4. Правая верхняя панель: Инструменты (Tools)
         float screenW = static_cast<float>(window.getSize().x);
         ImGui::SetNextWindowPos(ImVec2(screenW - 250, 65), ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowSize(ImVec2(240, 360), ImGuiCond_FirstUseEver);
@@ -241,7 +228,6 @@ int main() {
         }
         ImGui::End();
 
-        // 5. Правая нижняя панель: Графики (Заглушка под ImPlot)
         ImGui::SetNextWindowPos(ImVec2(screenW - 250, 435), ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowSize(ImVec2(240, 440), ImGuiCond_FirstUseEver);
         ImGui::Begin("Graphing");
@@ -257,7 +243,6 @@ int main() {
         }
         ImGui::End();
 
-        // ================= РЕНДЕР СЦЕНЫ =================
         window.clear(sf::Color(22, 24, 30));
 
         camera.setViewTo(window);

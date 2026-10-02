@@ -19,7 +19,7 @@ namespace Flux::Domain {
         PointCharge() = default;
         PointCharge(std::uint64_t id, std::string name, const Vector2D& pos, float charge, float radius = 6.0f);
 
-        void accept(IBodyVisitor& visitor) const override;
+        void accept(IBodyVisitor& visitor) override;
 
         float getCharge() const noexcept { return m_charge; }
         void setCharge(float q) noexcept { m_charge = q; }

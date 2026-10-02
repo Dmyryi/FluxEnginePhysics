@@ -12,7 +12,7 @@ namespace Flux::Domain {
             m_radius = r;
         }
     }
-    void PointCharge::accept(IBodyVisitor& visitor) const {
+    void PointCharge::accept(IBodyVisitor& visitor) {
         visitor.visit(*this);
     }
 }

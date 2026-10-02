@@ -16,7 +16,7 @@ namespace Flux::Domain {
         }
     }
 
-    void ChargedRod::accept(IBodyVisitor& visitor) const {
+    void ChargedRod::accept(IBodyVisitor& visitor) {
         visitor.visit(*this);
     }
 

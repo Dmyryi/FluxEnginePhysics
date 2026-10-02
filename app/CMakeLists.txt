@@ -1,7 +1,7 @@
 add_executable(FluxEnginePhysics main.cpp)
 
 target_link_libraries(FluxEnginePhysics PRIVATE
-application
+    application
     domain
     presentation
     SFML::Graphics
